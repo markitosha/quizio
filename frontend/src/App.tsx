@@ -1,37 +1,25 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import styles from './App.module.css'
-import classNames from "classnames/bind";
+import { AppBar, Container, Toolbar, Typography, Box } from '@mui/material';
+import React from 'react';
+import { Outlet } from 'react-router';
 
-const cx = classNames.bind(styles);
-
-function App() {
-  const [count, setCount] = useState(0)
-
+export const App = () => {
   return (
-    <div className={cx('App')}>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className={cx('logo')} alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className={cx('logo', 'react')} alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className={cx("card")}>
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className={cx("read-the-docs")}>
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    <>
+      <AppBar color={'transparent'} position={'static'}>
+        <Toolbar>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+          >
+            test
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Box sx={{ height: '20px' }}/>
+      <Container >
+        <Outlet />
+      </Container>
+    </>
   )
 }
-
-export default App
