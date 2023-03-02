@@ -1,4 +1,4 @@
-import { AppBar, Container, Toolbar, Typography, Box } from '@mui/material';
+import { AppBar, Box, Container, Toolbar, Typography } from '@mui/material';
 import React from 'react';
 import { Outlet } from 'react-router';
 
@@ -16,10 +16,10 @@ export const App = () => {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Box sx={{ height: '20px' }}/>
-      <Container >
+      <Box sx={{ height: '20px' }} />
+      <Container>
         <Outlet />
       </Container>
     </>
-  )
-}
+  );
+};

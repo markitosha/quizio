@@ -1,7 +1,9 @@
 import { Module } from '@nestjs/common';
-import { QuizesService } from './quizes.service';
-import { QuizesController } from './quizes.controller';
+
 import { PrismaService } from '../db/prisma.service';
+import { QuizesService } from './quizes.service';
+
+import { QuizesController } from './quizes.controller';
 
 @Module({
   controllers: [QuizesController],

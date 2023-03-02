@@ -1,6 +1,7 @@
 import React from 'react';
-import { QuizList } from './quizes/QuizList';
+
 import { CreateQuizButton } from './quizes/CreateQuizButton';
+import { QuizList } from './quizes/QuizList';
 
 export const QuizListPage = () => {
   return (

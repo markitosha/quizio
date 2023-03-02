@@ -1,17 +1,19 @@
-import { useQuery } from '@tanstack/react-query';
-import { fetchFromApi } from '../utils/fetchFromApi';
 import { CircularProgress } from '@mui/material';
-import { useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router';
+
+import { fetchFromApi } from '../utils/fetchFromApi';
 
 export const NewQuizPage = () => {
   const navigate = useNavigate();
   const createQuiz = useQuery({
     queryKey: ['createQuiz'],
-    queryFn: () => fetchFromApi({
-      path: 'quizes',
-      method: 'post'
-    })
+    queryFn: () =>
+      fetchFromApi({
+        path: 'quizes',
+        method: 'post',
+      }),
   });
 
   useEffect(() => {
@@ -32,5 +34,5 @@ export const NewQuizPage = () => {
     return <div>Error</div>;
   }
 
-  return <div />
-}
+  return <div />;
+};
