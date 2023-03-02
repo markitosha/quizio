@@ -1,16 +1,17 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
 } from '@nestjs/common';
-import { QuizesService } from './quizes.service';
-import { CreateQuizeDto } from './dto/create-quize.dto';
-import { UpdateQuizeDto } from './dto/update-quize.dto';
 import { ApiTags } from '@nestjs/swagger';
+
+import { QuizesService } from './quizes.service';
+
+import { UpdateQuizeDto } from './dto/update-quize.dto';
 
 @Controller('quizes')
 @ApiTags('quize')
@@ -18,8 +19,8 @@ export class QuizesController {
   constructor(private readonly quizesService: QuizesService) {}
 
   @Post()
-  create(@Body() createQuizeDto: CreateQuizeDto) {
-    return this.quizesService.create(createQuizeDto);
+  create() {
+    return this.quizesService.create();
   }
 
   @Get()

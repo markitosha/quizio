@@ -6,14 +6,16 @@ export const CreateQuizButton = () => {
   const navigate = useNavigate();
 
   return (
-    <Box sx={{
-      marginBottom: '20px',
-      display: 'flex',
-      justifyContent: 'end'
-    }}>
+    <Box
+      sx={{
+        marginBottom: '20px',
+        display: 'flex',
+        justifyContent: 'end',
+      }}
+    >
       <Button variant={'contained'} onClick={() => navigate('new')}>
         Create quiz
       </Button>
     </Box>
-  )
+  );
 };

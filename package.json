@@ -1,0 +1,21 @@
+{
+  "name": "quizio",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "pnpx eslint \"**/*.{ts,js,tsx}\" --fix --quiet",
+    "prepare": "husky install"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "8.0.1",
+    "eslint-plugin-import": "2.27.5",
+    "eslint-plugin-react": "7.32.2",
+    "eslint-plugin-react-hooks": "4.6.0",
+    "eslint-plugin-simple-import-sort": "10.0.0",
+    "husky": "8.0.3"
+  }
+}

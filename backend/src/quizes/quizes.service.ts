@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { UpdateQuizeDto } from './dto/update-quize.dto';
+
 import { PrismaService } from '../db/prisma.service';
+
+import { UpdateQuizeDto } from './dto/update-quize.dto';
 
 // TODO validation
 @Injectable()
