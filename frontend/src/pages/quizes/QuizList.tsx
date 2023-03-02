@@ -6,44 +6,15 @@ import {
   CircularProgress,
   Stack,
 } from '@mui/material';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router';
 
-import { fetchFromApi } from '../../utils/fetchFromApi';
-
-// TODO different hooks and divide to files
-const useQuizApi = () => {
-  const queryClient = useQueryClient();
-  // get all
-  const quizesList = useQuery({
-    queryKey: ['quizes'],
-    queryFn: () => fetchFromApi({ path: 'quizes' }),
-  });
-
-  // delete
-  const [deleteId, setDeleteId] = useState(-1);
-
-  useQuery({
-    queryKey: ['delete', deleteId],
-    queryFn: ({ queryKey: [, deleteId] }) =>
-      fetchFromApi({ path: `quizes/${deleteId}`, method: 'delete' }),
-    enabled: deleteId !== -1,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['quizes'] });
-      setDeleteId(-1);
-    },
-  });
-
-  return {
-    quizesList,
-    setDeleteId,
-    deleteId,
-  };
-};
+import { useDeleteQuiz } from './hooks/useDeleteQuiz';
+import { useGetQuizes } from './hooks/useGetQuizes';
 
 export const QuizList = () => {
-  const { quizesList, setDeleteId, deleteId } = useQuizApi();
+  const { quizesList } = useGetQuizes();
+  const { setDeleteId, deleteId } = useDeleteQuiz();
   const navigate = useNavigate();
 
   // TODO error boundary / suspence / react-router
