@@ -1,12 +1,15 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router';
+import { UseFormReturn } from 'react-hook-form';
 
 import { fetchFromApi } from '../../utils/fetchFromApi';
 
-export const useUpdateQuiz = (methods: ReturnType<typeof useForm>) => {
-  const { id } = useParams();
+import { QuizFormValues } from '../EditQuizPage';
+
+export const useUpdateQuiz = (
+  methods: UseFormReturn<QuizFormValues>,
+  id: string,
+) => {
   const queryClient = useQueryClient();
 
   const [submitted, setSubmitted] = useState(false);
@@ -43,8 +46,13 @@ export const useUpdateQuiz = (methods: ReturnType<typeof useForm>) => {
     setSubmitted(true);
   };
 
+  const handleCancel = () => {
+    methods.setValue('name', getQuiz.data.name);
+  };
+
   return {
     getQuiz,
     handleSubmit,
+    handleCancel,
   };
 };

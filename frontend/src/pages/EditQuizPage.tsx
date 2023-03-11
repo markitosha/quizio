@@ -1,39 +1,51 @@
-import { Button, CircularProgress, TextField } from '@mui/material';
+import { Breadcrumbs, Stack, Typography } from '@mui/material';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useParams } from 'react-router';
 
+import { CustomTextField } from '../components/fields/CustomTextField';
+import { RedButton } from '../components/fields/RedButton';
+import { SubmitButton } from '../components/fields/SubmitButton';
+import { MainLink } from '../components/links/MainLink';
+import { QuizesLink } from '../components/links/QuizesLink';
+import { RequestedData } from '../components/RequestedData';
+import { Space } from '../components/Space';
 import { useUpdateQuiz } from './hooks/useUpdateQuiz';
 
+export type QuizFormValues = {
+  name: string;
+};
+
 export const EditQuizPage = () => {
-  const methods = useForm();
-  const { getQuiz, handleSubmit } = useUpdateQuiz(methods);
+  const methods = useForm<QuizFormValues>();
+  const { id } = useParams();
+  const { getQuiz, handleSubmit, handleCancel } = useUpdateQuiz(methods, id);
 
   const name = methods.watch('name');
 
-  if (getQuiz.isLoading) {
-    return <CircularProgress />;
-  }
-
-  if (getQuiz.isError) {
-    return <div>Error</div>;
-  }
-
-  // TODO fields to components
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(handleSubmit)}>
-        <TextField
-          name={'name'}
-          variant={'outlined'}
-          inputProps={{
-            sx: {
-              color: 'white',
-            },
-            ...methods.register('name'),
-          }}
-        ></TextField>
-        {name !== getQuiz.data.name && <Button type={'submit'}>Update</Button>}
-      </form>
-    </FormProvider>
+    <>
+      <Breadcrumbs aria-label="breadcrumb">
+        <MainLink />
+        <QuizesLink />
+        <Typography color="text.primary">{id}</Typography>
+      </Breadcrumbs>
+      <Space />
+      <RequestedData query={getQuiz}>
+        <FormProvider {...methods}>
+          <form onSubmit={methods.handleSubmit(handleSubmit)}>
+            <Stack spacing={2}>
+              <CustomTextField name={'name'} />
+              {name !== getQuiz.data.name && (
+                <Stack spacing={2} direction={'row'}>
+                  <SubmitButton>Update</SubmitButton>
+                  <RedButton onClick={handleCancel}>Cancel</RedButton>
+                </Stack>
+              )}
+            </Stack>
+          </form>
+        </FormProvider>
+      </RequestedData>
+    </>
   );
 };

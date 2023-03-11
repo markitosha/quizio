@@ -1,11 +1,13 @@
-import { AppBar, Box, Container, Toolbar, Typography } from '@mui/material';
+import { AppBar, Container, Toolbar, Typography } from '@mui/material';
 import React from 'react';
 import { Outlet } from 'react-router';
+
+import { Space } from './components/Space';
 
 export const App = () => {
   return (
     <>
-      <AppBar color={'transparent'} position={'static'}>
+      <AppBar color="secondary" position={'static'}>
         <Toolbar>
           <Typography
             variant="h6"
@@ -16,7 +18,7 @@ export const App = () => {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Box sx={{ height: '20px' }} />
+      <Space />
       <Container>
         <Outlet />
       </Container>
