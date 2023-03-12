@@ -11,28 +11,28 @@ export const QuizList = () => {
   const { setDeleteId, deleteId } = useDeleteQuiz();
   const navigate = useNavigate();
 
-  return (
-    <RequestedData query={quizesList}>
-      <Stack spacing={2}>
-        {quizesList.data.map((item: any) => (
-          <Card
-            key={item.id}
-            variant={'outlined'}
-            color={'transparent'}
-            sx={{
-              opacity: item.id === deleteId ? 0.5 : 1,
-            }}
-          >
-            <CardContent>{item.id || 'noname'}</CardContent>
-            <CardActions>
-              <Button onClick={() => navigate(`${item.id}`)}>Edit</Button>
-              <Button color={'error'} onClick={() => setDeleteId(item.id)}>
-                Delete
-              </Button>
-            </CardActions>
-          </Card>
-        ))}
-      </Stack>
-    </RequestedData>
+  const quizListRender = () => (
+    <Stack spacing={2}>
+      {quizesList.data.map((item: any) => (
+        <Card
+          key={item.id}
+          variant={'outlined'}
+          color={'transparent'}
+          sx={{
+            opacity: item.id === deleteId ? 0.5 : 1,
+          }}
+        >
+          <CardContent>{item.id || 'noname'}</CardContent>
+          <CardActions>
+            <Button onClick={() => navigate(`${item.id}`)}>Edit</Button>
+            <Button color={'error'} onClick={() => setDeleteId(item.id)}>
+              Delete
+            </Button>
+          </CardActions>
+        </Card>
+      ))}
+    </Stack>
   );
+
+  return <RequestedData query={quizesList} render={quizListRender} />;
 };
