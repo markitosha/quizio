@@ -11,8 +11,17 @@ datasource db {
 }
 
 model Quiz {
-    id Int              @default(autoincrement()) @id
-    name String
-    created_at DateTime @default(now())
-    updated_at DateTime @default(now())
+  id          Int       @default(autoincrement()) @id
+  name        String
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @default(now())
+  sections    Section[]
+}
+
+model Section {
+  id      Int   @default(autoincrement()) @id
+  name    String
+  index   Int
+  quiz    Quiz  @relation(fields: [quizId], references: [id])
+  quizId  Int
 }
