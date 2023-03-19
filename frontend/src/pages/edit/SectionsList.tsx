@@ -12,7 +12,7 @@ import { SectionItem } from './SectionItem';
 export const SectionsList = () => {
   const { sectionsList } = useGetSections();
   const { handleCreate } = useCreateSection(
-    sectionsList.data?.[sectionsList.data?.length - 1].index || 0,
+    sectionsList.data?.[sectionsList.data?.length - 1]?.index || 0,
   );
   const { handleSortEnd, sortedList } = useSortSections(
     sectionsList.data || [],
