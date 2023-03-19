@@ -1,8 +1,9 @@
-import { IsNumber, IsString } from 'class-validator';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateSectionDto {
   @IsString()
-  readonly name: string;
+  @IsOptional()
+  readonly name?: string;
 
   @IsNumber()
   readonly index: number;

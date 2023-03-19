@@ -6,6 +6,7 @@ import { MainLink } from '../components/links/MainLink';
 import { QuizesLink } from '../components/links/QuizesLink';
 import { Space } from '../components/Space';
 import { EditQuizInfo } from './edit/EditQuizInfo';
+import { SectionsList } from './edit/SectionsList';
 
 export type QuizFormValues = {
   name: string;
@@ -23,6 +24,8 @@ export const EditQuizPage = () => {
       </Breadcrumbs>
       <Space />
       <EditQuizInfo />
+      <Space />
+      <SectionsList />
     </>
   );
 };

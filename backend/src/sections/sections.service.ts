@@ -4,6 +4,7 @@ import { PrismaService } from '../db/prisma.service';
 
 import { CreateSectionDto } from './dto/create-section.dto';
 import { UpdateSectionDto } from './dto/update-section.dto';
+import { UpdateSectionsDto } from './dto/update-sections.dto';
 
 @Injectable()
 export class SectionsService {
@@ -13,6 +14,7 @@ export class SectionsService {
     return this.prisma.section.create({
       data: {
         quizId,
+        name: 'section',
         ...createSectionDto,
       },
     });
@@ -44,6 +46,14 @@ export class SectionsService {
         id,
       },
     });
+  }
+
+  updateIndexes(updateSectionDto: UpdateSectionsDto) {
+    const promises = updateSectionDto.data.map((value) =>
+      this.update(value.id, { index: value.index }),
+    );
+
+    return Promise.all(promises);
   }
 
   remove(id: number) {

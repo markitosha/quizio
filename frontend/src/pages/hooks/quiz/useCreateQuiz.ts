@@ -2,12 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
-import { fetchFromApi } from '../../utils/fetchFromApi';
+import { fetchFromApi } from '../../../utils/fetchFromApi';
 
 export const useCreateQuiz = () => {
   const navigate = useNavigate();
   const createQuiz = useQuery({
-    queryKey: ['createQuiz'],
+    queryKey: ['create_quiz'],
     queryFn: () =>
       fetchFromApi({
         path: 'quizes',

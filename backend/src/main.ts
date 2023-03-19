@@ -17,7 +17,7 @@ const bootstrap = async () => {
 
   SwaggerModule.setup('api', app, document);
 
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   // TODO exception filter
 
   await app.listen(3000);

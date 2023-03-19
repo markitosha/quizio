@@ -3,8 +3,8 @@ import React from 'react';
 import { useNavigate } from 'react-router';
 
 import { RequestedData } from '../../components/RequestedData';
-import { useDeleteQuiz } from './hooks/useDeleteQuiz';
-import { useGetQuizes } from './hooks/useGetQuizes';
+import { useDeleteQuiz } from '../hooks/quiz/useDeleteQuiz';
+import { useGetQuizes } from '../hooks/quiz/useGetQuizes';
 
 export const QuizList = () => {
   const { quizesList } = useGetQuizes();
@@ -13,7 +13,7 @@ export const QuizList = () => {
 
   const quizListRender = () => (
     <Stack spacing={2}>
-      {quizesList.data.map((item: any) => (
+      {quizesList.data?.map((item) => (
         <Card
           key={item.id}
           variant={'outlined'}

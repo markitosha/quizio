@@ -13,6 +13,7 @@ import { SectionsService } from './sections.service';
 
 import { CreateSectionDto } from './dto/create-section.dto';
 import { UpdateSectionDto } from './dto/update-section.dto';
+import { UpdateSectionsDto } from './dto/update-sections.dto';
 
 @Controller('quizes/:quizId/sections')
 @ApiTags('sections')
@@ -33,21 +34,22 @@ export class SectionsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string, @Param('quizId') quizId: string) {
+  findOne(@Param('id') id: string) {
     return this.sectionsService.findOne(+id);
   }
 
   @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateSectionDto: UpdateSectionDto,
-    @Param('quizId') quizId: string,
-  ) {
+  update(@Param('id') id: string, @Body() updateSectionDto: UpdateSectionDto) {
     return this.sectionsService.update(+id, updateSectionDto);
   }
 
+  @Patch()
+  updateIndexes(@Body() updateSectionDto: UpdateSectionsDto) {
+    return this.sectionsService.updateIndexes(updateSectionDto);
+  }
+
   @Delete(':id')
-  remove(@Param('id') id: string, @Param('quizId') quizId: string) {
+  remove(@Param('id') id: string) {
     return this.sectionsService.remove(+id);
   }
 }
