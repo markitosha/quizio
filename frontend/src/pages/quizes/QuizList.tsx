@@ -3,36 +3,36 @@ import React from 'react';
 import { useNavigate } from 'react-router';
 
 import { RequestedData } from '../../components/RequestedData';
-import { useDeleteQuiz } from './hooks/useDeleteQuiz';
-import { useGetQuizes } from './hooks/useGetQuizes';
+import { useDeleteQuiz } from '../hooks/quiz/useDeleteQuiz';
+import { useGetQuizes } from '../hooks/quiz/useGetQuizes';
 
 export const QuizList = () => {
   const { quizesList } = useGetQuizes();
   const { setDeleteId, deleteId } = useDeleteQuiz();
   const navigate = useNavigate();
 
-  return (
-    <RequestedData query={quizesList}>
-      <Stack spacing={2}>
-        {quizesList.data.map((item: any) => (
-          <Card
-            key={item.id}
-            variant={'outlined'}
-            color={'transparent'}
-            sx={{
-              opacity: item.id === deleteId ? 0.5 : 1,
-            }}
-          >
-            <CardContent>{item.id || 'noname'}</CardContent>
-            <CardActions>
-              <Button onClick={() => navigate(`${item.id}`)}>Edit</Button>
-              <Button color={'error'} onClick={() => setDeleteId(item.id)}>
-                Delete
-              </Button>
-            </CardActions>
-          </Card>
-        ))}
-      </Stack>
-    </RequestedData>
+  const quizListRender = () => (
+    <Stack spacing={2}>
+      {quizesList.data?.map((item) => (
+        <Card
+          key={item.id}
+          variant={'outlined'}
+          color={'transparent'}
+          sx={{
+            opacity: item.id === deleteId ? 0.5 : 1,
+          }}
+        >
+          <CardContent>{item.id || 'noname'}</CardContent>
+          <CardActions>
+            <Button onClick={() => navigate(`${item.id}`)}>Edit</Button>
+            <Button color={'error'} onClick={() => setDeleteId(item.id)}>
+              Delete
+            </Button>
+          </CardActions>
+        </Card>
+      ))}
+    </Stack>
   );
+
+  return <RequestedData query={quizesList} render={quizListRender} />;
 };

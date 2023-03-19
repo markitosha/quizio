@@ -4,7 +4,6 @@ import { PrismaService } from '../db/prisma.service';
 
 import { UpdateQuizeDto } from './dto/update-quize.dto';
 
-// TODO validation
 @Injectable()
 export class QuizesService {
   constructor(private prisma: PrismaService) {}
