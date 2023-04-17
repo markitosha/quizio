@@ -6,7 +6,9 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { App } from './App';
+import { EditQuestionPage } from './pages/EditQuestionPage';
 import { EditQuizPage } from './pages/EditQuizPage';
+import { EditSectionPage } from './pages/EditSectionPage';
 import { NewQuizPage } from './pages/NewQuizPage';
 import { QuizListPage } from './pages/QuizListPage';
 
@@ -32,8 +34,16 @@ const router = createBrowserRouter([
         element: <NewQuizPage />,
       },
       {
-        path: 'quizes/:id',
+        path: 'quizes/:quizId',
         element: <EditQuizPage />,
+      },
+      {
+        path: 'quizes/:quizId/sections/:sectionId',
+        element: <EditSectionPage />,
+      },
+      {
+        path: 'quizes/:quizId/sections/:sectionId/questions/:questionId',
+        element: <EditQuestionPage />,
       },
     ],
   },

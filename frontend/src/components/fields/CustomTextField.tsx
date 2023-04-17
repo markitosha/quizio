@@ -18,7 +18,7 @@ export const CustomTextField: React.FC<Props> = ({
   return (
     <TextField
       name={name}
-      variant={'outlined'}
+      variant={'standard'}
       label={label || name}
       defaultValue={defaultValue}
       required

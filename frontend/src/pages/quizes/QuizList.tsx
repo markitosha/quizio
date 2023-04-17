@@ -3,17 +3,16 @@ import React from 'react';
 import { useNavigate } from 'react-router';
 
 import { RequestedData } from '../../components/RequestedData';
-import { useDeleteQuiz } from '../hooks/quiz/useDeleteQuiz';
-import { useGetQuizes } from '../hooks/quiz/useGetQuizes';
+import { useDeleteQuiz, useGetQuizList } from '../request_hooks/quiz.query';
 
 export const QuizList = () => {
-  const { quizesList } = useGetQuizes();
+  const { query: quizList } = useGetQuizList();
   const { setDeleteId, deleteId } = useDeleteQuiz();
   const navigate = useNavigate();
 
   const quizListRender = () => (
     <Stack spacing={2}>
-      {quizesList.data?.map((item) => (
+      {quizList.data?.map((item) => (
         <Card
           key={item.id}
           variant={'outlined'}
@@ -34,5 +33,5 @@ export const QuizList = () => {
     </Stack>
   );
 
-  return <RequestedData query={quizesList} render={quizListRender} />;
+  return <RequestedData query={quizList} render={quizListRender} />;
 };

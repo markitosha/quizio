@@ -3,25 +3,31 @@ import React from 'react';
 import { useParams } from 'react-router';
 
 import { MainLink } from '../components/links/MainLink';
+import { QuizeLink } from '../components/links/QuizeLink';
 import { QuizesLink } from '../components/links/QuizesLink';
 import { Space } from '../components/Space';
-import { EditQuizInfo } from './quizes/EditQuizInfo';
-import { SectionsList } from './sections/SectionsList';
+import { QuestionList } from './questions/QuestionList';
+import { EditSectionInfo } from './sections/EditSectionInfo';
 
-export const EditQuizPage = () => {
-  const { quizId } = useParams();
+export const EditSectionPage = () => {
+  const { quizId, sectionId } = useParams();
+
+  if (!sectionId) {
+    return null;
+  }
 
   return (
     <>
       <Breadcrumbs aria-label="breadcrumb">
         <MainLink />
         <QuizesLink />
-        <Typography color="text.primary">Quiz {quizId}</Typography>
+        <QuizeLink id={quizId} />
+        <Typography color="text.primary">Section {sectionId}</Typography>
       </Breadcrumbs>
       <Space />
-      <EditQuizInfo />
+      <EditSectionInfo />
       <Space />
-      <SectionsList />
+      <QuestionList />
     </>
   );
 };

@@ -10,11 +10,16 @@ import { UpdateSectionsDto } from './dto/update-sections.dto';
 export class SectionsService {
   constructor(private prisma: PrismaService) {}
 
-  create(quizId: number, createSectionDto: CreateSectionDto) {
+  async create(quizId: number, createSectionDto: CreateSectionDto) {
+    const maxIndex = (await this.findAll(quizId)).reduce((acc, item) => {
+      return acc > item.index ? acc : item.index;
+    }, -1);
+
     return this.prisma.section.create({
       data: {
         quizId,
         name: 'section',
+        index: maxIndex + 1,
         ...createSectionDto,
       },
     });

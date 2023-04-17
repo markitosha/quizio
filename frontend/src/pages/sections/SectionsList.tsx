@@ -1,27 +1,35 @@
 import { Button, Container, Paper, Stack } from '@mui/material';
 import React from 'react';
 import SortableList, { SortableItem } from 'react-easy-sort';
+import { useParams } from 'react-router';
 
 import { RequestedData } from '../../components/RequestedData';
 import { Space } from '../../components/Space';
-import { useCreateSection } from '../hooks/section/useCreateSection';
-import { useGetSections } from '../hooks/section/useGetSections';
-import { useSortSections } from '../hooks/section/useSortSections';
+import {
+  useCreateSection,
+  useGetSectionList,
+  useSortSections,
+} from '../request_hooks/section.query';
 import { SectionItem } from './SectionItem';
 
 export const SectionsList = () => {
-  const { sectionsList } = useGetSections();
-  const { handleCreate } = useCreateSection(
-    sectionsList.data?.[sectionsList.data?.length - 1]?.index || 0,
-  );
+  const { quizId } = useParams();
+
+  if (!quizId) {
+    return null;
+  }
+
+  const { query: sectionList } = useGetSectionList(quizId);
+  const { handleCreate } = useCreateSection(quizId);
   const { handleSortEnd, sortedList } = useSortSections(
-    sectionsList.data || [],
+    quizId,
+    sectionList.data || [],
   );
 
   const sectionsRender = () => (
     <SortableList onSortEnd={handleSortEnd}>
       <Stack spacing={2}>
-        {(sortedList || sectionsList.data)?.map((data) => (
+        {sortedList?.map((data) => (
           <SortableItem key={data.id}>
             <Paper>
               <Container>
@@ -36,7 +44,7 @@ export const SectionsList = () => {
 
   return (
     <>
-      <RequestedData query={sectionsList} render={sectionsRender} />
+      <RequestedData query={sectionList} render={sectionsRender} />
       <Space />
       <Button onClick={handleCreate} fullWidth>
         Add new section

@@ -1,14 +1,14 @@
 import { Alert, CircularProgress } from '@mui/material';
 import { UseQueryResult } from '@tanstack/react-query';
-import React, { PropsWithChildren, ReactNode } from 'react';
+import React, { PropsWithChildren, ReactElement, ReactNode } from 'react';
 
 type Props = {
   query: UseQueryResult;
   errorText?: string;
-  render?: () => ReactNode;
+  render?: () => ReactElement;
 };
 
-export const RequestedData: React.FC<PropsWithChildren<Props>> = ({
+export const RequestedData: React.FC<Props> = ({
   query,
   errorText = 'Something went wrong',
   render,
