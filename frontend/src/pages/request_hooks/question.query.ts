@@ -16,6 +16,8 @@ export type QuestionType = {
   type: QType;
   variants: string[];
   index: number;
+  answer: number;
+  value: number;
 };
 
 const getPath = (quizId: string, sectionId: string) =>

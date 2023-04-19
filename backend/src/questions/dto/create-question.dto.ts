@@ -5,7 +5,7 @@ export class CreateQuestionDto {
   @IsOptional()
   readonly type?: string;
 
-  @IsString()
+  @IsNumber()
   @IsOptional()
   readonly answer?: number;
 
