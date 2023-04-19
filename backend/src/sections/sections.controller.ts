@@ -49,7 +49,7 @@ export class SectionsController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: string, @Param('quizId') quizId: string) {
     return this.sectionsService.remove(+id);
   }
 }

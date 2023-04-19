@@ -4,20 +4,23 @@ import React, { PropsWithChildren } from 'react';
 type Props = {
   onClick: () => void;
   fullWidth?: boolean;
+  disabled?: boolean;
 };
 
-export const RedButton: React.FC<PropsWithChildren<Props>> = ({
+export const BlueButton: React.FC<PropsWithChildren<Props>> = ({
   children,
   onClick,
   fullWidth = true,
+  disabled = false,
 }) => {
   return (
     <Button
       type={'button'}
-      color={'secondary'}
+      color={'primary'}
       onClick={onClick}
       variant={'outlined'}
       fullWidth={fullWidth}
+      disabled={disabled}
     >
       {children}
     </Button>

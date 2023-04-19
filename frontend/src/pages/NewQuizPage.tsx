@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { RequestedData } from '../components/RequestedData';
-import { useCreateQuiz } from './hooks/quiz/useCreateQuiz';
+import { useNavigateWhenCreated } from './hooks/useNavigateWhenCreated';
+import { useCreateQuiz } from './request_hooks/quiz.query';
 
 export const NewQuizPage = () => {
-  const createQuiz = useCreateQuiz();
+  const { query, handleCreate } = useCreateQuiz();
 
-  return <RequestedData query={createQuiz} />;
+  useNavigateWhenCreated(query);
+
+  useEffect(() => {
+    handleCreate();
+  }, [handleCreate]);
+
+  return <RequestedData query={query} />;
 };

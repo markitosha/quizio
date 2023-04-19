@@ -4,25 +4,24 @@ import { useFormContext } from 'react-hook-form';
 
 type Props = {
   name: string;
-  label?: string;
-  defaultValue?: string;
+  defaultValue?: number;
+  label: string;
 };
 
-export const CustomTextField: React.FC<Props> = ({
+export const CustomNumeric: React.FC<Props> = ({
   name,
-  label,
   defaultValue,
+  label,
 }) => {
   const methods = useFormContext();
 
   return (
     <TextField
-      name={name}
-      variant={'standard'}
-      label={label || name}
+      label={label}
       defaultValue={defaultValue}
-      required
       inputProps={{
+        inputMode: 'numeric',
+        pattern: '[0-9]*',
         ...methods.register(name),
       }}
     />

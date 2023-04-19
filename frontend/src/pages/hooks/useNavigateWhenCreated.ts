@@ -1,19 +1,13 @@
-import { useQuery } from '@tanstack/react-query';
+import { UseQueryResult } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
-import { fetchFromApi } from '../../../utils/fetchFromApi';
+import { QuizType } from '../request_hooks/quiz.query';
 
-export const useCreateQuiz = () => {
+export const useNavigateWhenCreated = (
+  createQuiz: UseQueryResult<QuizType>,
+) => {
   const navigate = useNavigate();
-  const createQuiz = useQuery({
-    queryKey: ['create_quiz'],
-    queryFn: () =>
-      fetchFromApi({
-        path: 'quizes',
-        method: 'post',
-      }),
-  });
 
   useEffect(() => {
     if (createQuiz.isLoading) {
@@ -24,6 +18,4 @@ export const useCreateQuiz = () => {
       navigate(`/quizes/${createQuiz.data.id}`);
     }
   }, [createQuiz.isLoading, createQuiz.data, createQuiz.isError, navigate]);
-
-  return createQuiz;
 };

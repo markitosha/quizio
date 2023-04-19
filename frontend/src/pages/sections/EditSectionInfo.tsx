@@ -8,20 +8,31 @@ import { RedButton } from '../../components/fields/RedButton';
 import { SubmitButton } from '../../components/fields/SubmitButton';
 import { HookForm } from '../../components/HookForm';
 import { RequestedData } from '../../components/RequestedData';
-import { useUpdateQuiz } from '../hooks/quiz/useUpdateQuiz';
+import { useGetRequestFormSync } from '../../hooks/useGetRequestFormSync';
+import {
+  useGetSection,
+  useUpdateSection,
+} from '../request_hooks/section.query';
 
-export const EditQuizInfo = () => {
+export const EditSectionInfo = () => {
+  const { quizId, sectionId } = useParams();
+
+  if (!quizId || !sectionId) {
+    return null;
+  }
+
   const methods = useForm();
-  const { id } = useParams();
-  const { getQuiz, handleSubmit, handleCancel } = useUpdateQuiz(methods, id);
+  const { query: getSection } = useGetSection(quizId, sectionId);
+  const { handleSubmit } = useUpdateSection(quizId, sectionId, methods);
+  const { handleCancel } = useGetRequestFormSync(getSection, methods, 'name');
 
   const name = methods.watch('name');
 
   const formRender = () => (
     <HookForm handleSubmit={handleSubmit} methods={methods}>
       <Stack spacing={2}>
-        <CustomTextField name={'name'} />
-        {name !== getQuiz.data.name && (
+        <CustomTextField name={'name'} defaultValue={name} />
+        {name !== getSection.data?.name && (
           <Stack spacing={2} direction={'row'}>
             <SubmitButton>Update</SubmitButton>
             <RedButton onClick={handleCancel}>Cancel</RedButton>
@@ -31,5 +42,5 @@ export const EditQuizInfo = () => {
     </HookForm>
   );
 
-  return <RequestedData query={getQuiz} render={formRender} />;
+  return <RequestedData query={getSection} render={formRender} />;
 };

@@ -16,6 +16,7 @@ model Quiz {
   created_at  DateTime  @default(now())
   updated_at  DateTime  @default(now())
   sections    Section[]
+  questions   Question[]
 }
 
 model Section {
@@ -24,4 +25,20 @@ model Section {
   index   Int
   quiz    Quiz  @relation(fields: [quizId], references: [id])
   quizId  Int
+  questions Question[]
+}
+
+model Question {
+  id          Int     @default(autoincrement()) @id
+  type        String
+  answer      Int
+  variants    String[]
+  question    String
+  body        Bytes?
+  index       Int
+  section     Section @relation(fields: [sectionId], references: [id])
+  quiz        Quiz    @relation(fields: [quizId], references: [id])
+  sectionId   Int
+  quizId      Int
+  value       Int     @default(1)
 }
