@@ -11,34 +11,51 @@ datasource db {
 }
 
 model Quiz {
-  id          Int       @default(autoincrement()) @id
-  name        String
-  created_at  DateTime  @default(now())
-  updated_at  DateTime  @default(now())
-  sections    Section[]
-  questions   Question[]
+  id         Int        @id @default(autoincrement())
+  name       String
+  created_at DateTime   @default(now())
+  updated_at DateTime   @default(now())
+  sections   Section[]
+  questions  Question[]
+  Run        Run[]
 }
 
 model Section {
-  id      Int   @default(autoincrement()) @id
-  name    String
-  index   Int
-  quiz    Quiz  @relation(fields: [quizId], references: [id])
-  quizId  Int
+  id        Int        @id @default(autoincrement())
+  name      String
+  index     Int
+  quiz      Quiz       @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  quizId    Int
   questions Question[]
 }
 
 model Question {
-  id          Int     @default(autoincrement()) @id
-  type        String
-  answer      Int
-  variants    String[]
-  question    String
-  body        Bytes?
-  index       Int
-  section     Section @relation(fields: [sectionId], references: [id])
-  quiz        Quiz    @relation(fields: [quizId], references: [id])
-  sectionId   Int
-  quizId      Int
-  value       Int     @default(1)
+  id        Int      @id @default(autoincrement())
+  type      String
+  answer    Int
+  variants  String[]
+  question  String
+  body      Bytes?
+  index     Int
+  section   Section  @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  quiz      Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  sectionId Int
+  quizId    Int
+  value     Int      @default(1)
+}
+
+model Run {
+  id     Int      @id @default(autoincrement())
+  name   String
+  status String   @default("waiting")
+  quiz   Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  quizId Int
+  Player Player[]
+}
+
+model Player {
+  id    Int    @id @default(autoincrement())
+  name  String
+  run   Run    @relation(fields: [runId], references: [id], onDelete: Cascade)
+  runId Int
 }

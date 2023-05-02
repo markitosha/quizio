@@ -11,6 +11,8 @@ export const HookForm: React.FC<PropsWithChildren<Props>> = ({
   children,
   methods,
 }) => (
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   <FormProvider {...methods}>
     <form onSubmit={methods.handleSubmit(handleSubmit)}>{children}</form>
   </FormProvider>

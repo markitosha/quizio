@@ -21,7 +21,7 @@ export const QuizList = () => {
             opacity: item.id === deleteId ? 0.5 : 1,
           }}
         >
-          <CardContent>{item.id || 'noname'}</CardContent>
+          <CardContent>{item.name || 'noname'}</CardContent>
           <CardActions>
             <Button onClick={() => navigate(`${item.id}`)}>Edit</Button>
             <Button color={'error'} onClick={() => setDeleteId(item.id)}>
